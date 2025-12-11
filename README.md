@@ -1,5 +1,5 @@
-First add depenencies 
-npm install React
+First add depenencies  
+npm install React  
 npm install React-dom
 
 then run 
