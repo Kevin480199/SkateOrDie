@@ -6,7 +6,7 @@ function App(){
     return(
         <div>
             <Menubar/>
-            <p>Some text</p>
+            <p>Freestyling skater</p>
             <img src="https://wallpapercrafter.com/th800/283388-jump-skate-skateboard-and-skater-hd.jpg" alt="" width={500} />
         </div>
     )
