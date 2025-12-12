@@ -1,7 +1,6 @@
 import {createRoot} from 'react-dom/client';
 import Menubar from './components/MenuBar';
 
-
 function App(){
     return(
         <div>
