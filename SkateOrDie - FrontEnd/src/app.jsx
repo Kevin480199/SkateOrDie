@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import Menubar from "./components/MenuBar";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 import Modal from "./components/Modal";
 import ProductModalContent from "./components/ProductModalContent";
@@ -20,13 +21,13 @@ function App() {
         <Contact />
       </main>
 
+      <Footer />
+
       <Modal
         isOpen={Boolean(selectedProduct)}
         onClose={() => setSelectedProduct(null)}
       >
-        {selectedProduct ? (
-          <ProductModalContent product={selectedProduct} />
-        ) : null}
+        {selectedProduct ? <ProductModalContent product={selectedProduct} /> : null}
       </Modal>
     </div>
   );
