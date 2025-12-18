@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 
 import Modal from "./components/Modal";
 import ProductModalContent from "./components/ProductModalContent";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -15,7 +16,10 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <Menubar />
-
+        <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
       <main>
         <Home onSelectProduct={setSelectedProduct} />
         <Contact />
@@ -34,4 +38,8 @@ function App() {
 }
 
 const root = createRoot(document.querySelector("#root"));
-root.render(<App />);
+root.render(
+<BrowserRouter>
+<App />
+</BrowserRouter>
+);
