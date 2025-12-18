@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
+import { loadDb } from "../services/dbStore";
 
 export default function Menubar(){
-    const [category, setCategory] = useState([]);
 
-    useEffect(() => {
-        fetch('./data/database.json')
-        .then(res => res.json())
-        .then(data => setCategory(data.category))
-        .catch(err => console.error(err));
-    }, []);
+    const db = loadDb()
+    const categories = db.categories;
+    console.log(categories)
     return(
         <div>
             <nav className="bg-black p-4 flex items-center justify-center relative">
@@ -29,14 +26,15 @@ export default function Menubar(){
                  group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
                  pointer-events-none group-hover:pointer-events-auto
                  transition-all duration-200 ease-out z-10">
-    {category.map(cate => (
-      <li key={cate.title}>
-        <a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">{cate.title}</a>
-      </li>
+    {categories
+      .filter(category => category.parentId === 1)  // filter by parentId
+      .map(category => (
+        <li key={category.id}>
+          <a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">
+            {category.name}
+          </a>
+        </li>
     ))}
-    <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Tröjor</a></li>
-    <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Byxor</a></li>
-    <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Skor</a></li>
   </ul>
 </li>
 
@@ -50,9 +48,15 @@ export default function Menubar(){
                      group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
                      transition-all duration-200 pointer-events-none group-hover:pointer-events-auto
                      z-10">
-        <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Brädor</a></li>
-        <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Hjul</a></li>
-        <li><a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">Accessoarer</a></li>
+        {categories
+          .filter(category => category.parentId === 4)  // filter by parentId
+          .map(category => (
+            <li key={category.id}>
+              <a href="#" className="block px-4 py-2 hover:bg-gray-800 rounded">
+                {category.name}
+              </a>
+            </li>
+        ))}
       </ul>
     </li>
     <li className="relative group">
