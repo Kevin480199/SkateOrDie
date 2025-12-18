@@ -16,7 +16,7 @@ function App(){
         description: "Cool t-shirt med dödskallar och vapen!!!"
     };
 
-    
+
     return(
         <div>
             <Menubar/>
@@ -33,5 +33,5 @@ function App(){
     )
 }
 
-const root = createRoot( document.querySelector("#root") );
-root.render(<App/>); 
+const root = createRoot(document.querySelector("#root"));
+root.render(<App />);
