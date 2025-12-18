@@ -1,18 +1,25 @@
-import React from "react";
-import ProductGrid from "../components/ProductGrid";
+import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
+import { loadDb } from "../services/dbStore";
 
 const heroImageUrl = new URL(
   "../assets/heroimg.jpg",
   import.meta.url
 ).toString();
 
-const placeholderProducts = [
-  { id: "tee-001", title: "Tröja", priceSek: 399 },
-  { id: "pants-001", title: "Byxor", priceSek: 799 },
-  { id: "deck-001", title: "Bräda", priceSek: 699 },
-];
+export default function Home({ onSelectProduct }) {
+  const db = useMemo(() => loadDb(), []);
 
-export default function Home() {
+  // “Nyheter”:
+  const latestProducts = useMemo(() => {
+    const allowed = new Set([2, 5]);
+    return [...(db.products ?? [])]
+      .filter((p) => allowed.has(Number(p.categoryId)))
+      .sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
+      .slice(0, 3);
+  }, [db]);
+
   return (
     <>
       <section
@@ -31,12 +38,12 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#shop"
+            <Link
+              to="/products"
               className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-200"
             >
               Shoppa
-            </a>
+            </Link>
 
             <a
               href="#nyheter"
@@ -48,8 +55,31 @@ export default function Home() {
         </div>
       </section>
 
-      <div id="shop" />
-      <ProductGrid products={placeholderProducts} />
+      {/* NYHETER – samma “grid wrapper”-känsla som ProductsPage */}
+      <section id="nyheter" className="mx-auto max-w-6xl px-4 py-10">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="text-xl font-bold text-white">Nyheter</h2>
+          <Link
+            to="/products"
+            className="text-sm text-white/70 hover:text-white"
+          >
+            Visa alla
+          </Link>
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/15 p-3 sm:p-4">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+            {latestProducts.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onSelect={onSelectProduct}
+                compact
+              />
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
