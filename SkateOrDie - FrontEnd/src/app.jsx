@@ -5,6 +5,9 @@ import Modal from "./components/Modal";
 import ProductModalContent from './components/ProductModalContent';
 import Contact from "./pages/Contact";
 import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home"
+import Contact from './pages/Contact';
 
 function App(){
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,8 +22,13 @@ function App(){
 
     return(
         <div>
-            <Menubar/>
-            <Contact/>
+            <Router>
+            <Menubar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
+            </Router>
             <Footer/>
             <p>Freestyling skater</p>
             <img src="https://wallpapercrafter.com/th800/283388-jump-skate-skateboard-and-skater-hd.jpg" alt="" width={500} className="cursor-pointer"
