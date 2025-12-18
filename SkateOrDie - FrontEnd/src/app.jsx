@@ -1,34 +1,35 @@
-import {createRoot} from 'react-dom/client';
-import Menubar from './components/MenuBar';
-import { useState } from "react";
-import Modal from "./components/Modal";
-import ProductModalContent from './components/ProductModalContent';
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+
+import Menubar from "./components/MenuBar";
+import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 
-function App(){
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const mockproduct = {
-        id: 1,
-        name: "T Shirt",
-        category: "Kläder - Tröjor",
-        image: "/images/skate.jpg",
-        description: "Cool t-shirt med dödskallar och vapen!!!"
-    };
+import Modal from "./components/Modal";
+import ProductModalContent from "./components/ProductModalContent";
 
+function App() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-    return(
-        <div>
-            <Menubar/>
-            <Contact/>
-            <p>Freestyling skater</p>
-            <img src="https://wallpapercrafter.com/th800/283388-jump-skate-skateboard-and-skater-hd.jpg" alt="" width={500} className="cursor-pointer"
-                onClick={() => setIsModalOpen(true)}/>
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <Menubar />
 
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <ProductModalContent product={mockproduct} />
-            </Modal>
-        </div>
-    )
+      <main>
+        <Home onSelectProduct={setSelectedProduct} />
+        <Contact />
+      </main>
+
+      <Modal
+        isOpen={Boolean(selectedProduct)}
+        onClose={() => setSelectedProduct(null)}
+      >
+        {selectedProduct ? (
+          <ProductModalContent product={selectedProduct} />
+        ) : null}
+      </Modal>
+    </div>
+  );
 }
 
 const root = createRoot(document.querySelector("#root"));
