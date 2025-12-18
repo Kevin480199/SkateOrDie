@@ -1,7 +1,12 @@
 import {createRoot} from 'react-dom/client';
 import Menubar from './components/MenuBar';
+import Admin from "./pages/Admin";
+
 
 function App(){
+    if (window.location.pathname === "/admin") {
+    return <Admin />;
+  }
     return(
         <div>
             <Menubar/>
