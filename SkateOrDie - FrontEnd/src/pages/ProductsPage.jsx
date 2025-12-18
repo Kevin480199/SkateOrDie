@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { loadDb } from "../services/dbStore";
 
@@ -13,7 +13,12 @@ const pill = (active) =>
   ].join(" ");
 
 export default function ProductsPage({ onSelectProduct }) {
-  const { categories, products } = useMemo(() => loadDb(), []);
+  const [db, setDb] = useState(() => loadDb());
+  const { categories, products } = db;
+
+  useEffect(() => {
+    setDb(loadDb());
+    }, []);
 
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState("all");
