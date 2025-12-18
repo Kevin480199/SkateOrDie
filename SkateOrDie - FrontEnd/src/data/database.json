@@ -1,0 +1,32 @@
+{
+  "categories": [
+    { "id": 1, "name": "Kläder", "parentId": null },
+    { "id": 2, "name": "Tröjor", "parentId": 1 },
+    { "id": 3, "name": "Byxor", "parentId": 1 },
+
+    { "id": 4, "name": "Skateboards", "parentId": null },
+    { "id": 5, "name": "Brädor", "parentId": 4 },
+    { "id": 6, "name": "Hjul", "parentId": 4 }
+  ],
+  "products": [
+    { "id": 1, "categoryId": 2, "name": "Logo Hoodie - Black", "description": "Mjuk hoodie med broderad logga.", "image": "https://picsum.photos/seed/troja1/900/600" },
+    { "id": 2, "categoryId": 2, "name": "Crewneck - Grey", "description": "Crewneck i bomullsmix.", "image": "https://picsum.photos/seed/troja2/900/600" },
+    { "id": 3, "categoryId": 2, "name": "T-shirt - White", "description": "Klassisk t-shirt med print.", "image": "https://picsum.photos/seed/troja3/900/600" },
+    { "id": 4, "categoryId": 2, "name": "Longsleeve - Navy", "description": "Longsleeve för kallare dagar.", "image": "https://picsum.photos/seed/troja4/900/600" },
+
+    { "id": 5, "categoryId": 3, "name": "Cargo Pants - Olive", "description": "Cargobyxor med extra fickor.", "image": "https://picsum.photos/seed/byxor1/900/600" },
+    { "id": 6, "categoryId": 3, "name": "Baggy Jeans - Blue", "description": "Baggy jeans med skate-fit.", "image": "https://picsum.photos/seed/byxor2/900/600" },
+    { "id": 7, "categoryId": 3, "name": "Chinos - Sand", "description": "Chinos för skola och skate.", "image": "https://picsum.photos/seed/byxor3/900/600" },
+    { "id": 8, "categoryId": 3, "name": "Track Pants - Black", "description": "Lätta track pants med stretch.", "image": "https://picsum.photos/seed/byxor4/900/600" },
+
+    { "id": 9, "categoryId": 5, "name": "Street Deck 8.0", "description": "Stabil bräda för street.", "image": "https://picsum.photos/seed/brada1/900/600" },
+    { "id": 10, "categoryId": 5, "name": "Park Deck 8.25", "description": "Bredare bräda för park.", "image": "https://picsum.photos/seed/brada2/900/600" },
+    { "id": 11, "categoryId": 5, "name": "Classic Maple 8.1", "description": "7-lagers maple för bra pop.", "image": "https://picsum.photos/seed/brada3/900/600" },
+    { "id": 12, "categoryId": 5, "name": "Pro Deck 8.5", "description": "Stabil landning och kontroll.", "image": "https://picsum.photos/seed/brada4/900/600" },
+
+    { "id": 13, "categoryId": 6, "name": "Wheels 52mm - Street", "description": "52mm hjul för street.", "image": "https://picsum.photos/seed/hjul1/900/600" },
+    { "id": 14, "categoryId": 6, "name": "Wheels 54mm - Park", "description": "54mm hjul för park.", "image": "https://picsum.photos/seed/hjul2/900/600" },
+    { "id": 15, "categoryId": 6, "name": "Wheels 56mm - Cruiser", "description": "Mjukare rull på asfalt.", "image": "https://picsum.photos/seed/hjul3/900/600" },
+    { "id": 16, "categoryId": 6, "name": "Wheels 53mm - Allround", "description": "Allround för street/park.", "image": "https://picsum.photos/seed/hjul4/900/600" }
+  ]
+}
