@@ -10,9 +10,13 @@ import Footer from "./components/Footer";
 
 import Modal from "./components/Modal";
 import ProductModalContent from "./components/ProductModalContent";
+import Admin from "./pages/Admin";
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
+      if (window.location.pathname === "/admin") {
+    return <Admin />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
