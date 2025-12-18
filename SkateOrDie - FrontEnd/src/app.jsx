@@ -4,6 +4,7 @@ import { useState } from "react";
 import Modal from "./components/Modal";
 import ProductModalContent from './components/ProductModalContent';
 import Contact from "./pages/Contact";
+import Footer from './components/Footer';
 
 function App(){
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +21,7 @@ function App(){
         <div>
             <Menubar/>
             <Contact/>
+            <Footer/>
             <p>Freestyling skater</p>
             <img src="https://wallpapercrafter.com/th800/283388-jump-skate-skateboard-and-skater-hd.jpg" alt="" width={500} className="cursor-pointer"
                 onClick={() => setIsModalOpen(true)}/>
