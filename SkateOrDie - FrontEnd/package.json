@@ -18,8 +18,8 @@
     "tailwindcss": "^4.1.18"
   },
   "dependencies": {
-    "dom": "^0.0.3",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "@emailjs/browser": "^4.4.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   }
 }
