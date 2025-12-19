@@ -1,26 +1,27 @@
+// src/services/dbStore.js
 import seed from "../data/database.json";
 
 const DB_KEY = "skateordie_db_v1";
 const COUNTERS_KEY = "skateordie_counters_v1";
+const VERSION_KEY = "skateordie_db_version";
+
+const CURRENT_VERSION = Number(seed.version ?? 3);
 
 export function loadDb() {
+  const storedVersion = Number(localStorage.getItem(VERSION_KEY));
+  if (storedVersion !== CURRENT_VERSION) {
+    resetDb(); // återställer DB + räknare, sparar version
+  }
+
   const raw = localStorage.getItem(DB_KEY);
   if (raw) return JSON.parse(raw);
 
-  localStorage.setItem(DB_KEY, JSON.stringify(seed));
-
-  const maxCatId = Math.max(...seed.categories.map((c) => c.id), 0);
-  const maxProdId = Math.max(...seed.products.map((p) => p.id), 0);
-
-  localStorage.setItem(
-    COUNTERS_KEY,
-    JSON.stringify({
-      nextCategoryId: maxCatId + 1,
-      nextProductId: maxProdId + 1
-    })
-  );
-
-  return seed;
+  // Om ingen DB finns alls (t.ex. första körningen)
+  const initial = seed;
+  localStorage.setItem(DB_KEY, JSON.stringify(initial));
+  initializeCounters(initial);
+  localStorage.setItem(VERSION_KEY, String(CURRENT_VERSION));
+  return initial;
 }
 
 export function saveDb(db) {
@@ -28,20 +29,40 @@ export function saveDb(db) {
 }
 
 export function resetDb() {
-  localStorage.setItem(DB_KEY, JSON.stringify(seed));
+  const initial = seed;
+  localStorage.setItem(DB_KEY, JSON.stringify(initial));
+  initializeCounters(initial);
+  localStorage.setItem(VERSION_KEY, String(CURRENT_VERSION));
+  return initial;
+}
 
-  const maxCatId = Math.max(...seed.categories.map((c) => c.id), 0);
-  const maxProdId = Math.max(...seed.products.map((p) => p.id), 0);
+export function nextCategoryId() {
+  const counters = loadCounters();
+  const id = counters.nextCategoryId;
+  counters.nextCategoryId += 1;
+  saveCounters(counters);
+  return id;
+}
 
-  localStorage.setItem(
-    COUNTERS_KEY,
-    JSON.stringify({
-      nextCategoryId: maxCatId + 1,
-      nextProductId: maxProdId + 1
-    })
-  );
+export function nextProductId() {
+  const counters = loadCounters();
+  const id = counters.nextProductId;
+  counters.nextProductId += 1;
+  saveCounters(counters);
+  return id;
+}
 
-  return seed;
+// ---- helpers --------------------------------------------------
+
+function initializeCounters(dbSeed) {
+  const maxCatId = Math.max(...dbSeed.categories.map((c) => c.id), 0);
+  const maxProdId = Math.max(...dbSeed.products.map((p) => p.id), 0);
+
+  const counters = {
+    nextCategoryId: maxCatId + 1,
+    nextProductId: maxProdId + 1,
+  };
+  localStorage.setItem(COUNTERS_KEY, JSON.stringify(counters));
 }
 
 function loadCounters() {
@@ -49,22 +70,6 @@ function loadCounters() {
   return raw ? JSON.parse(raw) : { nextCategoryId: 1, nextProductId: 1 };
 }
 
-function saveCounters(c) {
-  localStorage.setItem(COUNTERS_KEY, JSON.stringify(c));
-}
-
-export function nextCategoryId() {
-  const c = loadCounters();
-  const id = c.nextCategoryId;
-  c.nextCategoryId += 1;
-  saveCounters(c);
-  return id;
-}
-
-export function nextProductId() {
-  const c = loadCounters();
-  const id = c.nextProductId;
-  c.nextProductId += 1;
-  saveCounters(c);
-  return id;
+function saveCounters(counters) {
+  localStorage.setItem(COUNTERS_KEY, JSON.stringify(counters));
 }
