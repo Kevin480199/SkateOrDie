@@ -3,8 +3,14 @@ import { loadDb } from "../services/dbStore";
 import { Link } from "react-router-dom";
 
 export default function Menubar() {
-  const db = loadDb();
-  const categories = db.categories;
+  const [categories, setCategories] = useState([]);
+     useEffect(() => {
+     const interval = setInterval(() => {
+       const db = loadDb();
+       setCategories(db.categories);
+     }, 2000);
+     return () => clearInterval(interval);
+   }, []);
   return (
     <div>
       <nav className="bg-black p-4 flex items-center justify-center relative">
