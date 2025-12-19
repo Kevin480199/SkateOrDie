@@ -88,21 +88,21 @@ export default function ProductsPage({ onSelectProduct }) {
             Alla
           </button>
 
-          {QUICK_FILTERS.map((name) => {
-            const id = categoryIdByName.get(name);
-            const active = id && categoryId === id;
+          {leafCategories.map((c) => {
+          const id = String(c.id);
+          const active = categoryId === id;
 
-            return (
-              <button
-                key={name}
-                type="button"
-                onClick={() => id && setCategoryId(id)}
-                className={pill(Boolean(active))}
-              >
-                {name}
-              </button>
-            );
-          })}
+          return (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => setCategoryId(id)}
+              className={pill(active)}
+            >
+              {c.name}
+            </button>
+          );
+        })}
         </div>
 
         {/* Sök + dropdown + actions */}
