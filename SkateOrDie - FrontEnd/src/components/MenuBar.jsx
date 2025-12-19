@@ -36,12 +36,12 @@ export default function Menubar() {
                 .filter((category) => category.parentId === 1) // filter by parentId
                 .map((category) => (
                   <li key={category.id}>
-                    <a
-                      href="#"
+                    <Link
+                      to={`/products?category=${category.id}`}
                       className="block px-4 py-2 hover:bg-gray-800 rounded"
                     >
                       {category.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
             </ul>
@@ -62,12 +62,12 @@ export default function Menubar() {
                 .filter((category) => category.parentId === 4) // filter by parentId
                 .map((category) => (
                   <li key={category.id}>
-                    <a
-                      href="#"
+                    <Link
+                      to={`/products?category=${category.id}`}
                       className="block px-4 py-2 hover:bg-gray-800 rounded"
                     >
                       {category.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
             </ul>

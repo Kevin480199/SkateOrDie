@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { loadDb } from "../services/dbStore";
+import { useSearchParams } from "react-router-dom";
+
 
 const QUICK_FILTERS = ["Tröjor", "Byxor", "Brädor", "Hjul"];
 
@@ -22,6 +24,13 @@ export default function ProductsPage({ onSelectProduct }) {
 
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState("all");
+  
+  const [params] = useSearchParams();
+  
+  useEffect(() => {
+  const cat = params.get("category");
+  if (cat) setCategoryId(cat);
+}, [params]);
 
   const categoryIdByName = useMemo(() => {
     const map = new Map();

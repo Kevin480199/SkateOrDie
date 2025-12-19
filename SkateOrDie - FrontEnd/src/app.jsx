@@ -33,6 +33,7 @@ function App() {
             element={<ProductsPage onSelectProduct={setSelectedProduct} />}
           />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
 
